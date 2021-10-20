@@ -1,0 +1,736 @@
+{
+  "info": {
+    "_postman_id": "fc678069-dc76-400e-a006-78cd8fa4a241",
+    "name": "MaratonaQA - Caminho Feliz",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Activities",
+      "item": [
+        {
+          "name": "POST - Caminho Feliz",
+          "item": [
+            {
+              "name": "Atividades V1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "630e1ef6-d1ba-49e8-a27d-d0087b640747",
+                    "exec": [
+                      "var jsonDataReq = JSON.parse(request.data);\r",
+                      "\r",
+                      "pm.test(\"Guardar variável\", function(){\r",
+                      "    pm.environment.set(\"ID_New\", jsonDataReq.id);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "_postman_id": "85685807-c86e-4964-9d05-56639ea98a1c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1111,\r\n    \"title\": \"Teste\",\r\n    \"dueDate\": \"2021-10-19T13:13:57.042Z\",\r\n    \"completed\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}api/v1/Activities"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "45b1309d-59a2-43ca-9260-b235cc735d35",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET - Caminho Feliz",
+          "item": [
+            {
+              "name": "GET - Todas Activities",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "c277387e-9f0e-4d24-8713-8da369edb42d",
+                    "exec": [
+                      "var jsonData = JSON.parse(responseBody); //Response Body da API\r",
+                      "\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validando nome do Status\", () =>{\r",
+                      "    pm.response.to.have.status(\"OK\"); //verifica o Status \"OK\"\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Content-Type\", () =>{\r",
+                      "    pm.response.to.have.header(\"Content-Type\"); //Verifica se há o content-type no Header\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Valor do Content-Type\", () =>{\r",
+                      "    pm.expect(pm.response.headers.get('Content-Type')).to.eql\r",
+                      "    ('application/json; charset=utf-8; v=1.0') //Verifica o valor do content-type\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(30000);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validando ID 1\", function () {\r",
+                      "    pm.expect(jsonData[0].id).to.eql(1); //Verifica se na posiçao zero há um id == 1\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Validando completed\", function () {\r",
+                      "    pm.expect(jsonData[0].completed).to.eql(false); //Verifica se na posiçao zero há um completed == false\r",
+                      "});\r",
+                      "\r",
+                      "\r",
+                      "pm.test(\"Validando Tipagem do Title\", function (){\r",
+                      "    pm.expect(jsonData[0].title).to.be.a(\"String\"); //Verifica se o Title é string ou não\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Agrupando testes\", function (){\r",
+                      "     pm.expect(jsonData[0].completed).to.eql(false); //Agrupamento de testes\r",
+                      "     pm.expect(jsonData[0].title).to.be.a(\"String\");\r",
+                      "     pm.expect(jsonData[0].id).to.eql(1)\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Guardando Variável\", function (){\r",
+                      "    pm.environment.set(\"ID-3\", jsonData[3].id); //Cria uma variavel de ambiente colocando o nome de ID-3 e pegando o id na posição 3 do array\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Guardando variável\", function(){\r",
+                      "    pm.environment.set(\"ID-1\", jsonData[0].id);\r",
+                      "})"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "_postman_id": "f3e84289-0986-42b4-9087-430dc8d58fda",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}api/v1/Activities"
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Activity Especifica",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "eabe07b8-9df2-4101-9e12-b4aac4e840ff",
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "_postman_id": "e90d6084-c412-4bc7-a391-08e60456ca23",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}api/v1/Activities/{{ID-1}}"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "75a5d676-ca9e-4e26-b3fc-6f171c8a04ce",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "PUT - Caminho Feliz",
+          "item": [
+            {
+              "name": "Atividades V1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "5d412777-e8b5-4f2f-8da7-b73301d116ec",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "_postman_id": "b34ac90f-fb87-4850-95ab-001dfa22c26f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 4444,\r\n  \"title\": \"String\",\r\n  \"dueDate\": \"2021-10-19T16:23:04.024Z\",\r\n  \"completed\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}api/v1/Activities/{{ID_New}}"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "39618e92-6a15-46f9-a741-9cf7a0a97e12",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "DELETE - Caminho Feliz",
+          "item": [
+            {
+              "name": "Atividades V1",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "1d483920-4c5f-4121-ace0-922f1881bc4f",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "_postman_id": "115bd60f-8e69-4be9-a690-de44a56bdfed",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{url}}api/v1/Activities/{{ID_New}}"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "149b72cc-2d7a-42ab-96d0-78fc19eb34d1",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "e575a2fc-c09a-4780-a5a3-9bc577602465"
+    },
+    {
+      "name": "Authors",
+      "item": [
+        {
+          "name": "POST - Caminho Feliz",
+          "item": [
+            {
+              "name": "Autores V1",
+              "_postman_id": "d27a027d-4afb-4137-9c64-ab33521cc28f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 8888,\r\n  \"idBook\": 8888,\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}api/v1/Authors"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "65683743-41d3-4281-b348-24fafb89d56d",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET - Caminho Feliz",
+          "item": [
+            {
+              "name": "GET - Todos autores",
+              "_postman_id": "93d7e8ff-eae3-4de0-a579-d85b1a150ad6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}/api/v1/Authors"
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Autor especifico",
+              "_postman_id": "7b227c45-4e8b-4d96-a8d2-d47251cac9ee",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}/api/v1/Authors/1"
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Autores de livro especifico",
+              "_postman_id": "c53b48a9-fef4-4103-bdc0-b7e28e349b5e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}api/v1/Authors/authors/books/4"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "6c4a10a7-11db-456a-a6cf-5b4c4178d2a2",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "PUT - Caminho Feliz",
+          "item": [
+            {
+              "name": "Autores V1",
+              "_postman_id": "fcc6ccfe-4bae-4a31-a4a7-b2909ea4a79d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 8888,\r\n  \"idBook\": 8888,\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}api/v1/Authors/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "4c13d08a-bbd9-4f2c-b8c0-cc05cbc8847b",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "DELETE - Caminho Feliz",
+          "item": [
+            {
+              "name": "Autores V1",
+              "_postman_id": "6f9bb0db-f443-43db-ae23-aedc93c04c47",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{url}}api/v1/Authors/8888"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "035348fb-1308-4547-a179-dd21840b604b",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "9205f1e6-b5ad-49a3-a0c6-62fc33b4e2bf"
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "POST - Caminho Feliz",
+          "item": [
+            {
+              "name": "Books V1",
+              "_postman_id": "b811788a-8104-45d0-af95-3f485dcc3e42",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 0,\r\n    \"title\": \"string\",\r\n    \"description\": \"string\",\r\n    \"pageCount\": 0,\r\n    \"excerpt\": \"string\",\r\n    \"publishDate\": \"2021-10-19T16:47:36.760Z\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}/api/v1/Books"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "cd9ef8f3-31a6-4fe1-aff1-1254a5892512",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET - Caminho Feliz",
+          "item": [
+            {
+              "name": "GET - Livros",
+              "_postman_id": "4a99f0ca-56e9-4aeb-b864-957ae47b4cd0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}/api/v1/Books"
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Livro especifico",
+              "_postman_id": "4238b727-b9fb-477d-9818-348846297647",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}/api/v1/Books/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "7b8c3136-b991-4eb7-8161-f85dde57ad17",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "PUT - Caminho Feliz",
+          "item": [
+            {
+              "name": "Books V1",
+              "_postman_id": "040472de-bce8-4d53-b076-4ce8b2454aed",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 8,\r\n    \"title\": \"string\",\r\n    \"description\": \"string\",\r\n    \"pageCount\": 0,\r\n    \"excerpt\": \"string\",\r\n    \"publishDate\": \"2021-10-19T16:51:50.946Z\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}/api/v1/Books/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "0e69e50c-cf98-40fe-9623-6d9215055def",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "DELETE - Caminho Feliz",
+          "item": [
+            {
+              "name": "Books V1",
+              "_postman_id": "692e142d-d789-4d08-ac7f-12508f4ce7a6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{url}}/api/v1/Books/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "708a55c9-e161-479f-bd36-b11533189d96",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "4245c10e-1815-44a4-bdb5-8f9a883423ae"
+    },
+    {
+      "name": "CoverPhotos",
+      "item": [
+        {
+          "name": "POST - Caminho Feliz",
+          "item": [
+            {
+              "name": "CoverPhotos V1",
+              "_postman_id": "142fad53-b95b-492f-a784-e97415693c2f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"idBook\": 0,\r\n    \"url\": \"string\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}api/v1/CoverPhotos"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "6cca3bb2-b593-411b-a43c-3845b8407ec0",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET - Caminho Feliz",
+          "item": [
+            {
+              "name": "GET - Todos Cover Photos",
+              "_postman_id": "3d72f2ec-fe04-4394-9e66-4ca5d6a9a21b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}api/v1/CoverPhotos"
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Cover Photo Especifico",
+              "_postman_id": "35ae745f-d483-4734-9570-09f29f65098d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}api/v1/CoverPhotos/1"
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Cover Photo de Livro especifico",
+              "_postman_id": "d20eaf58-4a20-45da-8e22-638f181bc8cc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}/api/v1/CoverPhotos/books/covers/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "08898241-6de8-4ee4-8d18-4ba7ded977d9",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "PUT - Caminho Feliz",
+          "item": [
+            {
+              "name": "Cover Photos V1",
+              "_postman_id": "43aef0c1-d4fb-4c95-9722-7ead6abbe01e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 2,\r\n    \"idBook\": 1,\r\n    \"url\": \"string\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}api/v1/CoverPhotos/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "672fa95b-4288-4716-a132-eb5797aaa0b6",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "DELETE - Caminho Feliz",
+          "item": [
+            {
+              "name": "Cover Photos V1",
+              "_postman_id": "6fa61711-69e9-4ab4-bd04-f7d5d78899de",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{url}}api/v1/CoverPhotos/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "83acc1c5-1d73-4afc-906e-2f821a42f623",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "70938996-1ad2-4100-b649-e9f7070eeef2"
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "POST - Caminho Feliz",
+          "item": [
+            {
+              "name": "Users V1",
+              "_postman_id": "4076c7b0-a5f9-4e67-87f6-00ca09a5db26",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"userName\": \"string\",\r\n    \"password\": \"string\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}api/v1/Users"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "13e3cc2d-5792-454c-9c20-6b760aa6f485",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "GET - Caminho Feliz",
+          "item": [
+            {
+              "name": "GET - Todos Users",
+              "_postman_id": "b565baef-fa07-4dd0-9d82-abde6136ae2c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}/api/v1/Users"
+              },
+              "response": []
+            },
+            {
+              "name": "GET - User especifico",
+              "_postman_id": "55543b63-901c-4e68-8b16-1b8f4a374d4e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": "{{url}}/api/v1/Users/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "b1569eab-a254-46fb-b303-7722034bedf6",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "PUT - Caminho Feliz",
+          "item": [
+            {
+              "name": "Users V1",
+              "_postman_id": "a4b6df0a-fdeb-4565-a12b-ca2e4d6530f5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 1,\r\n  \"userName\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": "{{url}}/api/v1/Users/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "98e9f823-a528-4c50-9516-0ddcf4938d0a",
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "DELETE - Caminho Feliz",
+          "item": [
+            {
+              "name": "Users V1",
+              "_postman_id": "f848a88f-af14-48f0-aa1c-c1e9b4faf213",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": "{{url}}/api/v1/Users/1"
+              },
+              "response": []
+            }
+          ],
+          "_postman_id": "4d9f1738-e3c1-45cc-9fbf-16e7af26d0be",
+          "_postman_isSubFolder": true
+        }
+      ],
+      "_postman_id": "7807239e-17a1-4be4-9566-1d5d5d1d344b"
+    }
+  ]
+}
